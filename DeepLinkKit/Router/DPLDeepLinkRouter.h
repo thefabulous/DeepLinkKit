@@ -136,8 +136,7 @@ typedef void(^DPLRouteCompletionBlock)(BOOL handled, NSError *error);
  }
  @endcode
  */
-- (void)setObject:(id)obj forKeyedSubscript:(NSString *)key
-NS_SWIFT_UNAVAILABLE("Available in Swift as: register(route: String, routeHandlerBlock: (DPLDeepLink) -> ())");
+- (void)setObject:(id)obj forKeyedSubscript:(NSString *)key;
 
 
 /**
@@ -147,6 +146,6 @@ NS_SWIFT_UNAVAILABLE("Available in Swift as: register(route: String, routeHandle
  @endcode
  @note The type of the returned handler is the type you registered for that route.
  */
-- (id)objectForKeyedSubscript:(NSString *)key NS_SWIFT_UNAVAILABLE("Not Available");
+- (id)objectForKeyedSubscript:(NSString *)key;
 
 @end
