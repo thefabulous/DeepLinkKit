@@ -21,10 +21,10 @@
 /**
  Indicates whether the deep link should be handled.
  @param deepLink A deep link instance.
+ @param error A optional error instance.
  @return YES to proceed with handling the deep link, otherwise NO. The default is YES.
  */
-- (BOOL)shouldHandleDeepLink:(DPLDeepLink *)deepLink;
-
+- (BOOL)shouldHandleDeepLink:(DPLDeepLink *)deepLink error:(NSError **)error ;
 
 /**
  If `viewControllerForPresentingDeepLink:' returns a `UINavigationController', the default behavior

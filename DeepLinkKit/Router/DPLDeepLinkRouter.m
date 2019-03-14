@@ -151,7 +151,7 @@
 }
 
 
-- (BOOL)handleRoute:(NSString *)route withDeepLink:(DPLDeepLink *)deepLink error:(NSError *__autoreleasing *)error {
+- (BOOL)handleRoute:(NSString *)route withDeepLink:(DPLDeepLink *)deepLink error:(NSError **)error {
     id handler = self[route];
     
     if ([handler isKindOfClass:NSClassFromString(@"NSBlock")]) {
@@ -162,7 +162,7 @@
              [handler isSubclassOfClass:[DPLRouteHandler class]]) {
         DPLRouteHandler *routeHandler = [[handler alloc] init];
 
-        if (![routeHandler shouldHandleDeepLink:deepLink]) {
+        if (![routeHandler shouldHandleDeepLink:deepLink error:error]) {
             return NO;
         }
         
