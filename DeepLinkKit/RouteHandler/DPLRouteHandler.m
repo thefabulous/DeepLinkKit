@@ -3,10 +3,9 @@
 
 @implementation DPLRouteHandler
 
-- (BOOL)shouldHandleDeepLink:(DPLDeepLink *)deepLink {
+- (BOOL)shouldHandleDeepLink:(DPLDeepLink *)deepLink error:(NSError **)error {
     return YES;
 }
-
 
 - (BOOL)preferModalPresentation {
     return NO;
