@@ -132,9 +132,9 @@
         return NO;
     }
 
-    DPLRouteMatcher *rootMatcher = [DPLRouteMatcher matcherWithRoute:""];
+    DPLRouteMatcher *rootMatcher = [DPLRouteMatcher matcherWithRoute:@""];
     if (self.beforeEachBlock) {
-        self.beforeEachBlock([rootMatcher deepLinkWithURL:url])
+        self.beforeEachBlock([rootMatcher deepLinkWithURL:url]);
     }
 
     NSError      *error;
@@ -150,7 +150,7 @@
     }
 
     if (self.afterEachBlock) {
-        self.afterEachBlock([rootMatcher deepLinkWithURL:url])
+        self.afterEachBlock([rootMatcher deepLinkWithURL:url]);
     }
     
     if (!deepLink) {
