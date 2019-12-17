@@ -67,6 +67,17 @@ typedef void(^DPLRouteCompletionBlock)(BOOL handled, NSError *error);
  */
 - (void)registerBlock:(DPLRouteHandlerBlock)routeHandlerBlock forRoute:(NSString *)route;
 
+/**
+Registers a block executed before each route.
+@param routeHandlerBlock A block to be executed before the supported route is matched.
+*/
+- (void)registerBeforeEachBlock:(DPLRouteHandlerBlock)routeHandlerBlock;
+
+/**
+Registers a block executed after each route.
+@param routeHandlerBlock A block to be executed after the supported route is matched.
+*/
+- (void)registerAfterEachBlock:(DPLRouteHandlerBlock)routeHandlerBlock;
 
 /**
  A Swift friendly version of -registerBlock:forRoute:

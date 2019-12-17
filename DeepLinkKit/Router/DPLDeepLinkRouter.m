@@ -12,6 +12,8 @@
 @property (nonatomic, strong) NSMutableOrderedSet *routes;
 @property (nonatomic, strong) NSMutableDictionary *classesByRoute;
 @property (nonatomic, strong) NSMutableDictionary *blocksByRoute;
+@property (nonatomic, copy) DPLRouteHandlerBlock beforeEachBlock;
+@property (nonatomic, copy) DPLRouteHandlerBlock afterEachBlock;
 
 @end
 
@@ -61,6 +63,17 @@
     }
 }
 
+- (void)registerBeforeEachBlock:(DPLRouteHandlerBlock)routeHandlerBlock {
+    if (routeHandlerBlock) {
+        self.beforeEachBlock = [routeHandlerBlock copy];
+    }
+}
+
+- (void)registerAfterEachBlock:(DPLRouteHandlerBlock)routeHandlerBlock {
+    if (routeHandlerBlock) {
+        self.afterEachBlock = [routeHandlerBlock copy];
+    }
+}
 
 - (void)register:(NSString *)route routeHandlerBlock:(DPLRouteHandlerBlock)routeHandlerBlock {
     [self registerBlock:routeHandlerBlock forRoute:route];
@@ -119,6 +132,11 @@
         return NO;
     }
 
+    DPLRouteMatcher *rootMatcher = [DPLRouteMatcher matcherWithRoute:""];
+    if (self.beforeEachBlock) {
+        self.beforeEachBlock([rootMatcher deepLinkWithURL:url])
+    }
+
     NSError      *error;
     DPLDeepLink  *deepLink;
     __block BOOL isHandled = NO;
@@ -129,6 +147,10 @@
             isHandled = [self handleRoute:route withDeepLink:deepLink error:&error];
             break;
         }
+    }
+
+    if (self.afterEachBlock) {
+        self.afterEachBlock([rootMatcher deepLinkWithURL:url])
     }
     
     if (!deepLink) {
