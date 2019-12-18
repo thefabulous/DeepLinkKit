@@ -12,6 +12,8 @@
 @property (nonatomic, strong) NSMutableOrderedSet *routes;
 @property (nonatomic, strong) NSMutableDictionary *classesByRoute;
 @property (nonatomic, strong) NSMutableDictionary *blocksByRoute;
+@property (nonatomic, copy) DPLRouteHandlerBlock beforeEachBlock;
+@property (nonatomic, copy) DPLRouteHandlerBlock afterEachBlock;
 
 @end
 
@@ -61,6 +63,17 @@
     }
 }
 
+- (void)registerBeforeEachBlock:(DPLRouteHandlerBlock)routeHandlerBlock {
+    if (routeHandlerBlock) {
+        self.beforeEachBlock = routeHandlerBlock;
+    }
+}
+
+- (void)registerAfterEachBlock:(DPLRouteHandlerBlock)routeHandlerBlock {
+    if (routeHandlerBlock) {
+        self.afterEachBlock = routeHandlerBlock;
+    }
+}
 
 - (void)register:(NSString *)route routeHandlerBlock:(DPLRouteHandlerBlock)routeHandlerBlock {
     [self registerBlock:routeHandlerBlock forRoute:route];
@@ -126,11 +139,18 @@
         DPLRouteMatcher *matcher = [DPLRouteMatcher matcherWithRoute:route];
         deepLink = [matcher deepLinkWithURL:url];
         if (deepLink) {
+            if (self.beforeEachBlock) {
+                self.beforeEachBlock(deepLink);
+            }
             isHandled = [self handleRoute:route withDeepLink:deepLink error:&error];
+            if (self.afterEachBlock) {
+                self.afterEachBlock(deepLink);
+            }
             break;
         }
     }
-    
+
+
     if (!deepLink) {
         NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: NSLocalizedString(@"The passed URL does not match a registered route.", nil) };
         error = [NSError errorWithDomain:DPLErrorDomain code:DPLRouteNotFoundError userInfo:userInfo];
