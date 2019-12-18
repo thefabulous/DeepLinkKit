@@ -65,13 +65,13 @@
 
 - (void)registerBeforeEachBlock:(DPLRouteHandlerBlock)routeHandlerBlock {
     if (routeHandlerBlock) {
-        self.beforeEachBlock = [routeHandlerBlock copy];
+        self.beforeEachBlock = routeHandlerBlock;
     }
 }
 
 - (void)registerAfterEachBlock:(DPLRouteHandlerBlock)routeHandlerBlock {
     if (routeHandlerBlock) {
-        self.afterEachBlock = [routeHandlerBlock copy];
+        self.afterEachBlock = routeHandlerBlock;
     }
 }
 
