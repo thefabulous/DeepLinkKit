@@ -132,11 +132,6 @@
         return NO;
     }
 
-    DPLRouteMatcher *rootMatcher = [DPLRouteMatcher matcherWithRoute:@""];
-    if (self.beforeEachBlock) {
-        self.beforeEachBlock([rootMatcher deepLinkWithURL:url]);
-    }
-
     NSError      *error;
     DPLDeepLink  *deepLink;
     __block BOOL isHandled = NO;
@@ -144,15 +139,18 @@
         DPLRouteMatcher *matcher = [DPLRouteMatcher matcherWithRoute:route];
         deepLink = [matcher deepLinkWithURL:url];
         if (deepLink) {
+            if (self.beforeEachBlock) {
+                self.beforeEachBlock(deepLink);
+            }
             isHandled = [self handleRoute:route withDeepLink:deepLink error:&error];
+            if (self.afterEachBlock) {
+                self.afterEachBlock(deepLink);
+            }
             break;
         }
     }
 
-    if (self.afterEachBlock) {
-        self.afterEachBlock([rootMatcher deepLinkWithURL:url]);
-    }
-    
+
     if (!deepLink) {
         NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: NSLocalizedString(@"The passed URL does not match a registered route.", nil) };
         error = [NSError errorWithDomain:DPLErrorDomain code:DPLRouteNotFoundError userInfo:userInfo];
