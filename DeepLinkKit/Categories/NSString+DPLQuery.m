@@ -22,7 +22,8 @@
         if (pairs.count == 2) {
             // e.g. ?key=value
             NSString *key   = [pairs[0] DPL_stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-            NSString *value = [pairs[1] DPL_stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSString *value = [[pairs[1] stringByReplacingOccurrencesOfString:@"+" withString:@" "]
+                               DPL_stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
             paramsDict[key] = value;
         }
         else if (pairs.count == 1) {
