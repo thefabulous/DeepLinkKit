@@ -4,3 +4,4 @@
 #import "DPLDeepLink.h"
 #import "DPLMutableDeepLink.h"
 #import "DPLErrors.h"
+#import "DPLDeepLinkConsuming.h"

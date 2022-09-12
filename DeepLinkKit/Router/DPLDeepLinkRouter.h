@@ -1,5 +1,7 @@
 @import Foundation;
 
+#import "DPLDeepLinkConsuming.h"
+
 @class DPLDeepLink;
 
 
@@ -32,6 +34,11 @@ typedef void(^DPLRouteCompletionBlock)(BOOL handled, NSError *error);
 
 @interface DPLDeepLinkRouter : NSObject
 
+/**
+ Delegate object allowing to notify that deeplink has been consumed
+ @note Object is set on a RouteHandler when a deeplink is fired.
+ */
+@property (nonatomic, weak) id <DPLDeepLinkConsuming> deepLinkConsumer;
 
 ///-------------------------
 /// @name Route Registration

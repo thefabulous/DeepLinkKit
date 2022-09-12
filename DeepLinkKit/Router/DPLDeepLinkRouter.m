@@ -181,6 +181,7 @@
     else if (class_isMetaClass(object_getClass(handler)) &&
              [handler isSubclassOfClass:[DPLRouteHandler class]]) {
         DPLRouteHandler *routeHandler = [[handler alloc] init];
+        routeHandler.deepLinkConsumer = _deepLinkConsumer;
 
         if (![routeHandler shouldHandleDeepLink:deepLink error:error]) {
             return NO;

@@ -1,5 +1,6 @@
 @import UIKit;
 #import "DPLTargetViewControllerProtocol.h"
+#import "DPLDeepLinkConsuming.h"
 
 @class DPLDeepLink;
 
@@ -17,6 +18,11 @@
  @see DPLTargetViewController
  */
 @interface DPLRouteHandler : NSObject
+
+/**
+ Delegate object allowing to notify that deeplink has been consumed
+ */
+@property (nonatomic, weak) id <DPLDeepLinkConsuming> deepLinkConsumer;
 
 /**
  Indicates whether the deep link should be handled.
