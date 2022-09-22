@@ -74,4 +74,10 @@
 - (void)presentTargetViewController:(UIViewController <DPLTargetViewController> *)targetViewController
                    inViewController:(UIViewController *)presentingViewController;
 
+
+/**
+ Call this method when given deeplink can be acknowledged as consumed. This will inform `DPLDeepLinkConsuming` 
+ */
+- (void)onConsumed;
+
 @end

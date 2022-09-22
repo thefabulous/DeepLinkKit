@@ -36,4 +36,10 @@
     }
 }
 
+- (void)onConsumed {
+    if (self.deepLinkConsumer != nil) {
+        [self.deepLinkConsumer didConsumedDeeplinkWithHandler:self];
+    }
+}
+
 @end
