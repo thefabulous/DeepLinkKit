@@ -1,0 +1,6 @@
+module DeepLinkKit {
+    umbrella header "DeepLinkKit.h"
+    
+    export *
+    module * { export * }
+}
